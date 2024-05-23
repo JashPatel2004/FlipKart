@@ -32,7 +32,7 @@ This project is a comprehensive e-commerce platform inspired by Flipkart. It is 
 
 ### Frontend Repository
 
-[Frontend Repository](https://github.com/jeelkhant3333/Flipkart_clone_Angular_Springboot.git)
+[Frontend Repository]([(https://github.com/JashPatel2004/e-commerce.git])
 
 
 flipkart-clone-frontend/
@@ -53,7 +53,7 @@ flipkart-clone-frontend/
 
 ### Backend Repository
 
-[Backend Repository](https://github.com/jeelkhant3333/flipkart_backend_java.git)
+[Backend Repository]([(https://github.com/JashPatel2004/e-commerce-backend.git])
 
 
 flipkart-clone-backend/
@@ -84,7 +84,7 @@ flipkart-clone-backend/
 
 1. Clone the frontend repository:
    bash
-   git clone https://github.com/jeelkhant3333/Flipkart_clone_Angular_Springboot.git
+   git clone https://github.com/JashPatel2004/e-commerce.git
    cd flipkart-clone-frontend
    
 
@@ -102,7 +102,7 @@ flipkart-clone-backend/
 
 1. Clone the backend repository:
    bash
-   git clone https://github.com/jeelkhant3333/flipkart_backend_java.git
+   git clone https://github.com/JashPatel2004/e-commerce-backend.git
    cd flipkart-clone-backend
    
 
@@ -122,5 +122,5 @@ flipkart-clone-backend/
 ## Usage
 
 - Open the frontend application in your browser at http://localhost:4200.
-- The backend server will be running at http://localhost:3333.
+- The backend server will be running at http://localhost:8080.
  
