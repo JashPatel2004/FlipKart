@@ -3,7 +3,13 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDividerModule } from '@angular/material/divider';
 import { CommonModule } from '@angular/common';
+import { Store } from '@ngrx/store';
+
+import { AppState } from '../../../../models/AppState';
 import { CartService } from '../../../../State/Cart/cart.service';
+import { CartState } from '../../../../State/Cart/cart.reducer';
+import { getCartRequest } from '../../../../State/Cart/cart.action';
+
 
 @Component({
   selector: 'app-cart-item',
@@ -18,24 +24,24 @@ export class CartItemComponent {
 
   constructor(
     private cartService:CartService,
+    private store:Store<CartState>
   ){}
-  
+
+
   removeCartItem() {
-    throw new
-      Error('Method not implemented.');
+    this.cartService.removeCartItem(this.cartItem.id)
+    // console.log("get cart req from store");
+    this.store.dispatch(getCartRequest())
   }
 
   updateCartItem(count : number) {
-  console.log("count" , count);
+    console.log(count);
+    
   console.log("after" , count+this.cartItem.quantity);
   
     this.cartService.updateCartItem({
       cartItemId : this.cartItem.id,
-      data : {quantity : count+this.cartItem.quantity} 
-    }).subscribe((data)=>{
-      console.log("data",data);
-      
-      this.cartItem = data
+      data : count+this.cartItem.quantity
     })
   }
 

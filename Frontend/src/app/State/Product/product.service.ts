@@ -71,26 +71,8 @@ export class ProductService {
                     )
                 })
             )
-        // .pipe(
-        //     map((data: any) => {
-        //         console.log("product data", data)
-        //         return findProductByCategorySuccess({ payload: data})
-        //     }),
-        //     catchError((error) => {
-        //         console.log("error", error)
-        //         return of(
-        //             findProductByCategoryFailure(
-        //                 error.response?.data?.message
-        //                     ? error.response.data.message
-        //                     : error.message
-        //             )
-        //         )
-        //     })
-        // )
-        // .subscribe((action)=>{
-        //     console.log("action",action.type)
-        //     this.store.dispatch(action)})
-    }
+     
+            }
 
     
     findProductsById(productId: any) {
@@ -99,7 +81,7 @@ export class ProductService {
         return this.http.get(`${this.apiUrl}/api/products/id/${productId}`, { headers}).pipe(
             map((data: any) => {
                 console.log("id data", data)
-                return data
+                return findProductByIdSuccess({payload:data})
             }),
             catchError((error) => {
                 console.log("error", error)
@@ -111,6 +93,9 @@ export class ProductService {
                     )
                 )
             })
-        )
+        ).subscribe((action)=>{
+            console.log("Product Action" , action)
+            this.store.dispatch(action)
+        })
     }
 }

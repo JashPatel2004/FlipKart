@@ -57,8 +57,8 @@ export class OrderService {
             .pipe(
                 map((data: any) => {
                     console.log('order by id', data);
-                    getOrderByIdSuccess({ order: data });
-                    return data
+                   return getOrderByIdSuccess({ order: data });
+                    
                 }),
                 catchError((error: any) => {
                     return of(
@@ -68,7 +68,7 @@ export class OrderService {
                                 : error.message
                         ))
                 })
-            )
+            ).subscribe((action) => this.store.dispatch(action));
     }
 
     getOrderHistory() {
@@ -88,6 +88,15 @@ export class OrderService {
                                 : error.message
                         ))
                 })
-            ).subscribe((action) => this.store.dispatch(action));
+            ).subscribe((action) =>{
+                console.log("action",action);
+                this.store.dispatch(action)
+                
+                
+                
+            })
+            
+    
+             
     }
 }

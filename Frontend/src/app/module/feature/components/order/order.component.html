@@ -4,7 +4,7 @@
 
     <div class="lg:grid grid-cols-4 gap-5">
 
-        <div class="col-span-1">
+        <div class="col-span-1 box bg-white h-fit">
 
             <div class="">
 
@@ -23,13 +23,13 @@
 
         </div>
 
-        <div class="col-span-3 scroll-py-5">
+        <div class="col-span-3 scroll-py-5 box bg-white p-5">
 
             <div class="space-y-5" *ngFor="let item of orders">
 
-                <div (click)="navigateToOrderDetails(1)" *ngFor="let orderItem of item">
+                <div (click)="navigateToOrderDetails(item.id)">
 
-                    <app-order-card />
+                    <app-order-card [orderitems]="item"/>
 
                 </div>
 

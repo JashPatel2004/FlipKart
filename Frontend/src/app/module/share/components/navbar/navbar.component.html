@@ -2,7 +2,7 @@
     <!-- bg-[#69f0ae] -->
 
     <!-- Navbar -->
-    <div class="lg:px-20 px-5 h-16  flex items-center justify-between">
+    <div class="lg:px-20 px-5 h-11  flex items-center justify-between">
 
         <!-- Right Side Content -->
         <div class="flex items-center">
@@ -19,7 +19,8 @@
             <div>
 
                 <div class="flex space-x-4 items-center">
-                    <a routerLink="/" class="hover:scale-110 cursor-pointer font-bold-00 text-lg">Home</a>
+                        <a routerLink="" class="hover:scale-110 hover:text-[#2874F0] cursor-pointer font-bold-00 text-lg">Home</a>
+                    
                     <button
                         class="group focus:outline-none focus:scale-110 focus:text-[#2874F0] hover:text-[#2874F0] hover:scale-110 cursor-pointer font-bold-700 text-lg open-button"
                         (click)="openNavbarContent('men')"
@@ -38,14 +39,14 @@
                 <mat-icon>shopping_cart</mat-icon>
             </button>
             <!-- If Else -->
-            <button class="font-bold-700 text-lg hover:scale-110 cursor-pointer" (click)="handleOpenLoginModel()"
-                *ngIf="!userProfile" mat-raised-button> LOGIN
+            <button class="font-bold-700 text-lg hover:scale-110 cursor-pointer" (click)="handleOpenLoginModal()"
+                *ngIf="userProfile.length===0" mat-raised-button> Login
             </button>
-            <div *ngIf="userProfile" class="ml-3 flex items-center">
+            <div *ngIf="userProfile.length!==0"class="ml-3 flex items-center">
 
                 <div class="flex items-center justify-between">
 
-                    <span class="open-button font-bold-700 text-lg">{{userProfile.firstName}}</span>
+                    <span class="open-button font-bold-700 text-lg">{{userProfile?.firstName}}</span>
                     <button mat-button [matMenuTriggerFor]="profileMenu">
                         <img class="h-5 w-5 hover:scale-110 cursor-pointer"
                             src="https://cdn.pixabay.com/photo/2013/07/12/14/36/man-148582_1280.png" alt="">
@@ -53,7 +54,7 @@
                     <mat-menu #profileMenu="matMenu">
                         <button mat-menu-item>Profile</button>
                         <button mat-menu-item (click)="navigateTo('account/orders')">Orders</button>
-                        <button mat-menu-item (click)="handleLogout()">Logout</button>
+                        <button mat-menu-item (click)="handleLogOut()">Logout</button>
                     </mat-menu>
 
                 </div>
@@ -71,3 +72,6 @@
     </div>
 
 </div>
+
+
+<router-outlet></router-outlet>

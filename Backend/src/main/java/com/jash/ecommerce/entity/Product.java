@@ -19,7 +19,7 @@ public class Product {
     private String description;
     private int price;
     private int discountedPrice;
-    private int discountPercent;
+    private int discountedPercent;
     private int quantity;
     private String brand;
     private String color;
@@ -41,13 +41,13 @@ public class Product {
     public Product() {
     }
 
-    public Product(long id, String title, String description, int price, int discountedPrice, int discountPercent, int quantity, String brand, String color, String imageUrl, Set<Size> sizes, List<Rating> ratings, List<Reviews> reviews, int numRatings, Category category, LocalDateTime createdAt) {
+    public Product(long id, String title, String description, int price, int discountedPrice, int discountedPercent, int quantity, String brand, String color, String imageUrl, Set<Size> sizes, List<Rating> ratings, List<Reviews> reviews, int numRatings, Category category, LocalDateTime createdAt) {
         this.id = id;
         this.title = title;
         this.description = description;
         this.price = price;
         this.discountedPrice = discountedPrice;
-        this.discountPercent = discountPercent;
+        this.discountedPercent = discountedPercent;
         this.quantity = quantity;
         this.brand = brand;
         this.color = color;
@@ -101,11 +101,11 @@ public class Product {
     }
 
     public int getDiscountPercent() {
-        return discountPercent;
+        return discountedPercent;
     }
 
-    public void setDiscountPercent(int discountPercent) {
-        this.discountPercent = discountPercent;
+    public void setDiscountPercent(int discountedPercent) {
+        this.discountedPercent = discountedPercent;
     }
 
     public int getQuantity() {

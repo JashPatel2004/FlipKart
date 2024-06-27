@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface OrderRepository extends JpaRepository<Order,Long> {
 
-    @Query("SELECT o FROM Order o WHERE o.user.id = :userId AND (o.orderStatus = 'PLACED' OR o.orderStatus = 'CONFIRMED' OR o.orderStatus = 'SHIPPED' OR o.orderStatus = 'DELIVERED')")
+    @Query("SELECT o FROM Order o WHERE o.user.id = :userId")
     List<Order> getUsersOrders(@Param("userId") Long userId);
 
 }

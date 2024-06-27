@@ -11,4 +11,11 @@ export class AddressCardComponent {
 
   @Input() address:any;
 
+  
+  
+
+  
+
+  
+
 }

@@ -17,15 +17,16 @@ import java.util.Optional;
 @Service
 public class CartItemServiceImpl implements CartItemService{
 
-    private CartItemRepository cartItemRepository;
+    private final CartItemRepository cartItemRepository;
     private CartRepository cartRepository;
-    private UserService userService;
+    private final UserService userService;
 
     public CartItemServiceImpl(CartItemRepository cartItemRepository, CartRepository cartRepository, UserService userRepository) {
         this.cartItemRepository = cartItemRepository;
         this.cartRepository = cartRepository;
         this.userService = userRepository;
     }
+
     @Override
     @Transactional
     public CartItem createCartItem(CartItem cartItem) {
@@ -37,16 +38,16 @@ public class CartItemServiceImpl implements CartItemService{
 
     @Override
     @Transactional
-    public CartItem updateCartItem(Long userId, Long id, CartItem cartitem) throws CartitemException, UserException {
+    public void updateCartItem(Long userId, Long id, int quantity) throws CartitemException, UserException {
         CartItem item = findCartItemById(id);
         User user = userService.findUserById(userId);
 
         if(userId.equals(user.getId())){
-            item.setQuantity(item.getQuantity());
+            item.setQuantity(quantity);
             item.setPrice(item.getProduct().getPrice()*item.getQuantity());
             item.setDiscountedPrice(item.getProduct().getDiscountedPrice()*item.getQuantity());
         }
-        return cartItemRepository.save(item);
+        cartItemRepository.save(item);
     }
 
     @Override
@@ -57,14 +58,21 @@ public class CartItemServiceImpl implements CartItemService{
     @Override
     @Transactional
     public void removeCartItem(Long userId, Long cartItemId) throws CartitemException, UserException {
+
         CartItem item = findCartItemById(cartItemId);
+        System.out.println("item " + item.getProduct().getColor());
         User user = userService.findUserById(item.getUserId());
         User reqUser = userService.findUserById(userId);
 
         if (user.getId() == reqUser.getId()){
-            cartItemRepository.deleteById(cartItemId);
+            System.out.println("hello");
+            cartItemRepository.deleteById(item.getId());
+            System.out.println("delete ");
+        }else{
+            throw new UserException("You Can't Remove It");
         }
-        throw new UserException("You Can't Remove It");
+
+
     }
 
     @Override

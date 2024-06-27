@@ -15,20 +15,28 @@ export class HomeCarouselComponent {
   currentSlide=0;
   interval:any; 
 
-  ngOnInit(){
+  ngOnInit(): void {
     this.carouselData = mainCarouselData;
     // this.autoPlay();
   }
-
-
-  autoPlay(){
-    setInterval(()=>{
-      this.nextSlide();
-    },2000)
+  
+  autoPlay() {
+    try {
+      setInterval(() => {
+        this.nextSlide();
+      }, 3000); // Adjust the interval (in milliseconds) as needed
+    } catch (error) {
+      console.error("Error in autoPlay method:", error);
+    }
   }
   
   nextSlide() {
-   this.currentSlide = (this.currentSlide+1) % this.carouselData.length
+    try {
+      this.currentSlide = (this.currentSlide + 1) % this.carouselData.length;
+    } catch (error) {
+      console.error("Error in nextSlide method:", error);
+    }
   }
+  
 
 }

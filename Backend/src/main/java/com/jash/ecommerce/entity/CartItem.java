@@ -19,8 +19,7 @@ public class CartItem {
     private Integer discountedPrice;
     private Long userId;
 
-    public CartItem(){
-
+    public CartItem() {
     }
 
     public CartItem(Long id, Cart cart, Product product, String size, int quantity, Integer price, Integer discountedPrice, Long userId) {

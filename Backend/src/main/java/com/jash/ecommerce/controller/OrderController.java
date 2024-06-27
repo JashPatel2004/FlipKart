@@ -25,7 +25,7 @@ public class OrderController {
 
     @PostMapping("/")
     public ResponseEntity<Order> createOrder(@RequestBody Address shippingAddress,
-                                             @RequestHeader("Authorization") String jwt) throws UserException{
+                                             @RequestHeader("Authorization") String jwt) throws UserException {
         User user=userService.findUserProfileByJwt(jwt);
         Order order=orderService.createOrder(user,shippingAddress);
         return new ResponseEntity<Order>(order, HttpStatus.CREATED);
@@ -33,14 +33,14 @@ public class OrderController {
 
     @GetMapping("/user")
     public ResponseEntity<List<Order>> usersOrderHistory(@RequestHeader("Authorization") String jwt) throws UserException{
-    User user=userService.findUserProfileByJwt(jwt);
-    List<Order> orders=orderService.usersOrderHistory(user.getId());
-    return new ResponseEntity<>(orders,HttpStatus.CREATED);
+        User user=userService.findUserProfileByJwt(jwt);
+        List<Order> orders=orderService.usersOrderHistory(user.getId());
+        return new ResponseEntity<>(orders,HttpStatus.CREATED);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Order> findOrderById(@PathVariable("id") Long orderId,
-                                               @RequestHeader("Authorization") String jwt) throws UserException, OrderException{
+                                               @RequestHeader("Authorization") String jwt) throws UserException, OrderException {
         User user=userService.findUserProfileByJwt(jwt);
         Order order=orderService.findOrderById(orderId);
 

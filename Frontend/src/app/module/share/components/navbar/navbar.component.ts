@@ -6,13 +6,14 @@ import { MatMenuModule } from '@angular/material/menu';
 import { CommonModule } from '@angular/common';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatDialog } from '@angular/material/dialog';;
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { AuthComponent } from '../../../auth/auth.component';
 import { Store, select } from '@ngrx/store';
-import { AppState } from '../../../../models/AppState';
+import { AppState, UserState } from '../../../../models/AppState';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { UserInfo } from 'node:os';
 import { UserService } from '../../../../State/User/user.service';
-
+import { logoutSuccess } from '../../../../State/User/user.action';
 
 
 
@@ -29,7 +30,8 @@ import { UserService } from '../../../../State/User/user.service';
         CommonModule,
         NavContentComponent,
         MatDividerModule,
-        HttpClientModule
+        HttpClientModule,
+        RouterModule
     ]
 })
 export class NavbarComponent {
@@ -44,18 +46,24 @@ export class NavbarComponent {
         private userService: UserService,
         private store: Store<AppState>,
         private http: HttpClient,
-        private cdr: ChangeDetectorRef
     ) {
 
     }
 
     ngOnInit() {
-        if (typeof localStorage !== 'undefined' && localStorage.getItem('jwt')) {
-            this.userService.getUserProfile(this.http).subscribe((response) => {
-                this.userProfile = response
-                this.dilouge.closeAll;
-            })
-        }
+        this.userService.getUserProfile()
+
+        this.store.select('user').subscribe(user=>{
+            this.userProfile=user.userProfile
+        })
+
+        // this.store.pipe(
+        //     select((store)=>store.user)
+        // ).subscribe((user)=>{
+        //     this.userProfile = user.userProfile
+        //     this.dilouge.closeAll()
+        // })
+       
     }
 
 
@@ -91,12 +99,12 @@ export class NavbarComponent {
         }
     }
 
-    handleLogout =()=>{
-      localStorage.removeItem("jwt")
-
+    handleLogOut = () => {
+        localStorage.removeItem("jwt")
+        this.store.dispatch(logoutSuccess())
     }
 
-    handleOpenLoginModel = () => {
+    handleOpenLoginModal = () => {
 
         this.dilouge.open(
             AuthComponent,

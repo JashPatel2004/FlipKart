@@ -4,7 +4,9 @@ import com.jash.ecommerce.entity.Cart;
 import com.jash.ecommerce.entity.CartItem;
 import com.jash.ecommerce.entity.Product;
 import com.jash.ecommerce.entity.User;
+import com.jash.ecommerce.exception.CartitemException;
 import com.jash.ecommerce.exception.ProductException;
+import com.jash.ecommerce.exception.UserException;
 import com.jash.ecommerce.repository.CartRepository;
 import com.jash.ecommerce.request.AddItemRequest;
 import com.jash.ecommerce.service.cartItem.CartItemService;
@@ -15,9 +17,9 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class CartServiceImpl implements CartService{
 
-    private CartRepository cartRepository;
-    private CartItemService cartItemService;
-    private ProductService productService;
+    private final CartRepository cartRepository;
+    private final CartItemService cartItemService;
+    private final ProductService productService;
 
     public CartServiceImpl(CartRepository cartRepository, CartItemService cartItemService, ProductService productService) {
         this.cartRepository = cartRepository;
@@ -28,7 +30,7 @@ public class CartServiceImpl implements CartService{
     @Override
     @Transactional
     public Cart createCart(User user) {
-        Cart cart=new Cart();
+        Cart cart = new Cart();
         cart.setUser(user);
         return cartRepository.save(cart);
     }
@@ -57,7 +59,9 @@ public class CartServiceImpl implements CartService{
 
     @Override
     public Cart findUserCart(Long userId) {
+//        System.out.println("findUserCart");
         Cart cart = cartRepository.findByUserId(userId);
+//        System.out.println("get cart " + cart);
         int totalPrice=0;
         int totalDiscountedPrice=0;
         int totalItem=0;
@@ -73,5 +77,14 @@ public class CartServiceImpl implements CartService{
         cart.setTotalItem(totalItem);
         cart.setDiscount(totalPrice-totalDiscountedPrice);
         return  cartRepository.save(cart);
+    }
+
+    @Override
+    @Transactional
+    public String removeCartItem(Long userId, Long itemId) throws UserException, CartitemException {
+        Cart cart = cartRepository.findByUserId(userId);
+        CartItem item = cartItemService.findCartItemById(itemId);
+        cart.getCartItems().remove(item);
+        return "Item Removed";
     }
 }

@@ -9,15 +9,17 @@ import { PaymentSuccessComponent } from './module/feature/components/payment-suc
 import { OrderComponent } from './module/feature/components/order/order.component';
 import { OrderDetailsComponent } from './module/feature/components/order-details/order-details.component';
 import { AdminModule } from './module/admin/admin.module';
+import { AuthComponent } from './module/auth/auth.component';
 
 export const routes: Routes = [
     {path:"admin" ,  loadChildren:()=>import("./module/admin/admin-routing.module").then(m=>AdminModule)},
     {path:"" , component:HomeComponent},
     {path:"cart" , component:CartComponent},
+    {path:"auth" , component:AuthComponent},
     {path:"product-details/:id" , component:ProductDetailsComponent},
     {path:"checkout" , component:CheckoutComponent},
     {path:"checkout/payment/:id" , component:PaymentComponent},
-    {path:"payment-sucess" , component:PaymentSuccessComponent},
+    {path:"payment-success" , component:PaymentSuccessComponent},
     {path:":levelOne/:levelTwo/:levelThree" , component:ProductsComponent},
     {path:"account/orders" , component:OrderComponent},
     {path:"order/:id" , component:OrderDetailsComponent},
